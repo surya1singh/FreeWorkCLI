@@ -1,6 +1,6 @@
 from colorama import Fore
 from option_parser import OptParser
-
+from personal import Personal
 
 
 def main(kwargs):
@@ -10,16 +10,13 @@ def main(kwargs):
     try:
         welcome(user)
         while True:
-            print("[p] Checkout your personal workspace")
-            print("[o] Checkout your office workspace")
-            print("[e] or ctrl-c to exit")
-            print()
+            show_commands()
             choice = input("Go to [p]ersonal or [o]ffice tasks? ").lower().strip()
             if choice == 'p':
                 Personal(user)
             if choice == 'o':
                 Office(user)
-            if choice == 'e':
+            if choice == 'x':
                 raise KeyboardInterrupt()
     except KeyboardInterrupt:
         print("Thank you For using FreeWork".center(110," "))
@@ -39,7 +36,13 @@ def welcome(user):
     print('Here you can manage your personal to-do list.'.center(110," "))
     print('Here you can manage team task.'.center(110," "))
     print('And many more. Check documentations for more details.'.center(110," "))
+    print()
 
+def show_commands():
+    print("[p] Checkout your personal workspace")
+    print("[o] Checkout your office workspace")
+    print("[e] or ctrl-c to exit")
+    print()
 
 
 
