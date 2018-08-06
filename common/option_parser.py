@@ -1,6 +1,6 @@
 from optparse import OptionParser
 import traceback
-from errors import OptionParserError
+from .errors import OptionParserError
 
 class OptParser:
     @classmethod

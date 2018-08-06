@@ -10,4 +10,4 @@ def get_action(user):
 
 
 def unknown_command():
-    print("Sorry we didn't understand that command.")
+    print(Fore.BLACK,"Sorry we didn't understand that command.")

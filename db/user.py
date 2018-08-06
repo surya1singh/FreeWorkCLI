@@ -13,3 +13,11 @@ class User(mongoengine.Document):
         'db_alias': 'core',
         'collection': 'users'
     }
+
+
+def login_user(user, password):
+    if user == 'surya' and password == 'surya':
+        return user
+
+def change_password(user):
+    pass
