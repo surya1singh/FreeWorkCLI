@@ -1,23 +1,28 @@
-from colorama import Fore
+from infrastructure.switchlang import switch
+import infrastructure.state as state
+
+
 from option_parser import OptParser
 from personal import Personal
-
+from common.general import get_action, unknown_command
 
 def main(kwargs):
-    user = kwargs['username']
-    if not login_user(kwargs['username'],kwargs['password']):
+    user = login_user(kwargs['username'],kwargs['password'])
+    if not user:
         raise ValueError("Incorrect User/password")
     try:
         welcome(user)
         while True:
             show_commands()
-            choice = input("Go to [p]ersonal or [o]ffice tasks? ").lower().strip()
-            if choice == 'p':
-                Personal(user)
-            if choice == 'o':
-                Office(user)
-            if choice == 'x':
-                raise KeyboardInterrupt()
+            action = get_action(user)
+            with switch(action) as s:
+                s.case('p', lambda: Personal(user))
+                s.case('o', lambda: Office(user))
+                s.case(['x', 'bye', 'exit', 'exit()'], exit)
+                s.case('?', show_commands)
+                s.case('', lambda: None)
+                s.default(unknown_command)
+
     except KeyboardInterrupt:
         print("Thank you For using FreeWork".center(110," "))
         return ""
@@ -26,7 +31,7 @@ def main(kwargs):
 
 def login_user(user, password):
     if user == 'surya' and password == 'surya':
-        return True
+        return user
 
 
 
